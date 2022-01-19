@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 
 #include "libavcodec/avcodec.h"
 #include "libavfilter/avfilter.h"
@@ -13,7 +13,7 @@ int main()
 {
     AVFormatContext *fmt_ctx = avformat_alloc_context();//创建对象并初始化
     int ret=0;
-    char* fileName="/home/jackey/Videos/Sample.mkv";//文件地址
+    char* fileName="D:/test.mp4";//文件地址
 
     do{
         //打开文件

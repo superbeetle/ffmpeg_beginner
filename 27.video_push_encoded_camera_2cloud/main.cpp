@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 
 #define __STDC_CONSTANT_MACROS
 
@@ -34,8 +34,12 @@ int main()
     int videoIndex = -1;
     int frameIndex = 0;
 
-    const char *inFilename = "video=HP HD Camera";//输入URL
-    const char *outFilename = "rtmp://192.168.31.29/myapp/test"; //输出URL
+    // 使用命令获取设备名称
+    // ffmpeg -list_devices true -f dshow -i dummy
+    // video=xxxxx
+    // xxxx值: 摄像头、桌面等
+    const char *inFilename = "video=screen-capture-recorder";//输入URL
+    const char *outFilename = "rtmp://127.0.0.1:1935/hls/myscreen"; //输出URL
     const char *ofmtName = NULL;
 
     avdevice_register_all();
@@ -131,8 +135,10 @@ int main()
     }
 
     // 1.7 打开H.264编码器
+//    av_dict_set(&params, "buffer_size", "1024000", 0);// 1.buffer_size：减少卡顿或者花屏现象，相当于增加或扩大了缓冲区，给予编码和发送足够的时间。
     av_dict_set(&params, "preset", "superfast", 0);
     av_dict_set(&params, "tune", "zerolatency", 0);	//实现实时编码
+
     if (avcodec_open2(pH264CodecCtx, pH264Codec, &params) < 0)
     {
         printf("can't open video encoder.\n");

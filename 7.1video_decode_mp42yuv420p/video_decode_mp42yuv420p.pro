@@ -4,11 +4,18 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 # 包含FFmpeg库文件位置
+contains(QT_ARCH, i386) {
+message("32-bit")
+DESTDIR = D:/WorkSpace/Projects/ffmpeg_beginner/bin32
+} else {
+message("64-bit")
+DESTDIR = $${PWD}/bin64
+}
 
 # windows平台
 win32{
-INCLUDEPATH += C:\\ffmpeg\\include
-LIBS += -LC:/ffmpeg/lib \
+INCLUDEPATH += D:\\WorkSpace\\Projects\\ffmpeg-libs\\win32\\ffmpeg\\include
+LIBS += -LD:/WorkSpace/Projects/ffmpeg-libs/win32/ffmpeg/lib \
         -lavcodec \
         -lavdevice \
         -lavformat \

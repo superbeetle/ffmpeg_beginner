@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include "libavcodec/avcodec.h"
 #include "libavfilter/avfilter.h"
@@ -34,7 +34,7 @@ void saveFrame(AVFrame *pFrame, int width, int height, int iFrame)
 }
 
 int main() {
-    char filePath[]       = "/home/jackey/Videos/Sample.mkv";//文件地址
+    char filePath[]       = "d:/test.mkv";//文件地址
     int  videoStreamIndex = -1;//视频流所在流序列中的索引
     int ret=0;//默认返回值
 
