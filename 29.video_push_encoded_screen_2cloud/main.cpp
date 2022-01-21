@@ -38,8 +38,8 @@ int main()
     // ffmpeg -list_devices true -f dshow -i dummy
     // video=xxxxx
     // xxxx值: 摄像头、桌面等
-//    const char *inFilename = "video=screen-capture-recorder";//输入URL
-    const char *inFilename = "video=Integrated Camera";// 摄像头
+    const char *inFilename = "video=screen-capture-recorder";//输入URL
+
     const char *outFilename = "rtmp://127.0.0.1:1935/hls/myscreen"; //输出URL
     const char *ofmtName = NULL;
 
@@ -55,7 +55,8 @@ int main()
 
     // 1. 打开输入
     // 1.1 打开输入文件，获取封装格式相关信息
-    av_dict_set_int(&options, "rtbufsize", 18432000  , 0);
+    av_dict_set_int(&options, "rtbufsize", 18432000, 0);
+
     if ((ret = avformat_open_input(&ifmtCtx, inFilename, ifmt, &options)) < 0)
     {
         printf("can't open input file: %s\n", inFilename);
@@ -128,19 +129,22 @@ int main()
     pH264CodecCtx->time_base.den = 25;	//帧率（即一秒钟多少张图片）
     pH264CodecCtx->bit_rate = 400000;	//比特率（调节这个大小可以改变编码后视频的质量）
     pH264CodecCtx->gop_size = 250;
-    pH264CodecCtx->qmin = 10;   //调节清晰度和编码速度 //这个值调节编码后输出数据量越大输出数据量越小，越大编码速度越快，清晰度越差
-    pH264CodecCtx->qmax = 51;   //调节清晰度和编码速度
+    pH264CodecCtx->qmin = 0;   //调节清晰度和编码速度 //这个值调节编码后输出数据量越大输出数据量越小，越大编码速度越快，清晰度越差
+    pH264CodecCtx->qmax = 69;   //调节清晰度和编码速度
+//    pH264CodecCtx->qcompress=0.6;
 //     pH264CodecCtx->max_b_frames = 0; //去掉B帧
     //some formats want stream headers to be separate
 //	if (pH264CodecCtx->flags & AVFMT_GLOBALHEADER)
     {
-        pH264CodecCtx->flags |= AV_CODEC_FLAG_GLOBAL_HEADER | AV_CODEC_FLAG_LOW_DELAY;
+        pH264CodecCtx->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
     }
 
     // 1.7 打开H.264编码器
 //    av_dict_set(&params, "buffer_size", "1024000", 0);// 1.buffer_size：减少卡顿或者花屏现象，相当于增加或扩大了缓冲区，给予编码和发送足够的时间。
     av_dict_set(&params, "preset", "superfast", 0);
     av_dict_set(&params, "tune", "zerolatency", 0);	//实现实时编码
+//    av_dict_set(&params, "video_size", "1920*1080", 0);
+
 
     if (avcodec_open2(pH264CodecCtx, pH264Codec, &params) < 0)
     {
