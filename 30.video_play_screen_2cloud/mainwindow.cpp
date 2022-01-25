@@ -25,11 +25,31 @@ void Delay(int msec)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
+void fullScreen(Ui::MainWindow *ui)
+{
+    if(!ui->centralwidget->isFullScreen())
+    {
+//        ui->centralwidget->setWindowFlag(Qt::Window);
+//        ui->centralwidget->showFullScreen();
+//        QDesktopWidget* desktopWgt = QApplication::desktop();
+
+//        qDebug() << "size: " << desktopWgt->size();
+//        ui->centralwidget->resize(desktopWgt->size());
+
+
+        ui->centralwidget->showFullScreen();
+    }
+
+}
+
 
 void MainWindow::on_btnPlay_clicked()
 {
     if(!isPlaying)
     {
+        // 全屏
+        showFullScreen();
+
         this->initPlayer();
         timer->start(frame_rate);
         isPlaying = true;
@@ -103,7 +123,7 @@ void MainWindow::initPlayer()
     double ar = wgw / w ;
     qDebug() << "区域大小："<< w << "," << h;
     this->ui->label->setScaledContents(true);
-    this->ui->label->setGeometry(0,0,wgw,wgh * ar); // 为了方便显示全，这里显示缩小到60%
+    this->ui->label->setGeometry(0,0,w,h); // 为了方便显示全，这里显示缩小到60%
 
     // 获取帧频
     //    AVStream *stream=pFormatCtx->streams[packet->stream_index];
