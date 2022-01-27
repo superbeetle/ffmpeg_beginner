@@ -28,10 +28,8 @@ LIBS += -LD:/WorkSpace/Projects/ffmpeg-libs/win32/ffmpeg/lib \
 
 # linux平台
 unix{
-    INCLUDEPATH+= .
-    LIBS += -L/usr/lib/x86_64-linux-gnu/ \
-            -lavcodec -lavdevice -lavfilter -lavformat -lavutil -lpostproc \
-            -lswresample -lswscale
+INCLUDEPATH += /data/home/jun/mysoft-installed/ffmpeg-4.4/include
+LIBS += -L/data/home/jun/mysoft-installed/ffmpeg-4.4/lib -lavcodec -lavdevice -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale
 }
 
 

@@ -49,7 +49,7 @@ private:
     int frame_rate = 10; // 帧频尽量设置小一点，减少播放延迟
 
     //    char filepath[] = "D:\\test.mkv";
-    char *filepath = "rtmp://127.0.0.1:1935/hls/myscreen";
+    char *filepath = "rtmp://192.168.0.142:1935/hls/myscreen";
 
 
 };

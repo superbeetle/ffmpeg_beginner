@@ -40,13 +40,19 @@ int main()
     // xxxx值: 摄像头、桌面等
     const char *inFilename = "video=screen-capture-recorder";//输入URL
 
-    const char *outFilename = "rtmp://127.0.0.1:1935/hls/myscreen"; //输出URL
+    const char *outFilename = "rtmp://192.168.48.1:1935/hls/myscreen"; //输出URL
     const char *ofmtName = NULL;
 
     avdevice_register_all();
     avformat_network_init();
 
+    // Win
     AVInputFormat *ifmt = av_find_input_format("dshow");
+
+    // Linux
+//    AVInputFormat *ifmt = av_find_input_format("x11grab");
+//    inFilename = ":0.0+0,0";
+
     if (!ifmt)
     {
         printf("can't find input device\n");
